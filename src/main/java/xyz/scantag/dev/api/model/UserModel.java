@@ -1,22 +1,12 @@
-package xyz.scantag.dev.api.entity;
+package xyz.scantag.dev.api.model;
+
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "t_user")
 @Getter @Setter
-@SuperBuilder
-@NoArgsConstructor
-public class User {
+public class UserModel {
 
-    @Id
     String userId;
 
     String username;
@@ -36,4 +26,5 @@ public class User {
     Boolean accountActive;
     Boolean accountNonLocked;
     Boolean credentialsNonExpired;
+
 }
