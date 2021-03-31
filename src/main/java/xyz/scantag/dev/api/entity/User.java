@@ -5,9 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "t_user")
@@ -17,23 +16,26 @@ import javax.persistence.Table;
 public class User {
 
     @Id
-    String userId;
+    private String userId;
 
-    String username;
-    String password;
-    String email;
+    private String username;
+    private String password;
+    private String email;
 
-    Integer contactNumber;
+    private Integer contactNumber;
 
     // Address Variables
-    String streetAddress;
-    String city;
-    Integer postcode;
-    String state;
-    String country;
+    private String streetAddress;
+    private String city;
+    private Integer postcode;
+    private String state;
+    private String country;
 
     // Admin Variables
-    Boolean accountActive;
-    Boolean accountNonLocked;
-    Boolean credentialsNonExpired;
+    private Boolean accountActive;
+    private Boolean accountNonLocked;
+    private Boolean credentialsNonExpired;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private List<UserRole> roles;
 }

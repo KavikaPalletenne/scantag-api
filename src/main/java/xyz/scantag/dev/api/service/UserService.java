@@ -7,9 +7,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.RandomStringUtils;
 import xyz.scantag.dev.api.entity.User;
+import xyz.scantag.dev.api.entity.UserRole;
 import xyz.scantag.dev.api.model.UserModel;
 import xyz.scantag.dev.api.persistence.UserRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,6 +56,7 @@ public class UserService {
             userId = RandomStringUtils.randomAlphanumeric(8);
         }
 
+
         User user = User.builder()
                 .userId(userId)
                 .username(userModel.getUsername())
@@ -67,6 +71,7 @@ public class UserService {
                 .accountActive(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
+                .roles(userModel.getRoles())
                 .build();
 
         userRepository.save(user);
@@ -91,6 +96,7 @@ public class UserService {
                 .accountActive(userModel.getAccountActive())
                 .accountNonLocked(userModel.getAccountNonLocked())
                 .credentialsNonExpired(userModel.getCredentialsNonExpired())
+                .roles(userModel.getRoles())
                 .build();
 
         userRepository.save(user);

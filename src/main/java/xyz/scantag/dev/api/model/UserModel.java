@@ -3,28 +3,32 @@ package xyz.scantag.dev.api.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import xyz.scantag.dev.api.entity.UserRole;
+
+import java.util.List;
 
 @Getter @Setter
 public class UserModel {
 
-    String userId;
+    private String userId;
 
-    String username;
-    String password;
-    String email;
+    private String username;
+    private String password;
+    private String email;
 
-    Integer contactNumber;
+    private Integer contactNumber;
 
     // Address Variables
-    String streetAddress;
-    String city;
-    Integer postcode;
-    String state;
-    String country;
+    private String streetAddress;
+    private String city;
+    private Integer postcode;
+    private String state;
+    private String country;
 
     // Admin Variables
-    Boolean accountActive;
-    Boolean accountNonLocked;
-    Boolean credentialsNonExpired;
+    private Boolean accountActive;
+    private Boolean accountNonLocked;
+    private Boolean credentialsNonExpired;
 
+    private List<UserRole> roles;
 }
