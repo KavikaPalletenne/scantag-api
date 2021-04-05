@@ -46,22 +46,6 @@ public class UserService {
         return userRepository.findByUsername(username).get();
     }
 
-    public User getByIdLite(String userId) {
-
-        if(userRepository.findById(userId).isEmpty())
-        {
-            log.warn("Could not find user with ID - {}", userId);
-            return null;
-        }
-
-        User user = userRepository.findById(userId).get();
-
-        user.setPassword(null);
-
-
-        return user;
-    }
-
     public ResponseEntity<Object> createUser(UserModel userModel) {
 
         if(userRepository.findById(userModel.getUsername()).isPresent()) {

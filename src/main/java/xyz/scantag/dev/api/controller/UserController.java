@@ -26,23 +26,11 @@ public class UserController {
     }
 
     @GetMapping(value = "/get")
-    public User getUser(@RequestParam String id, Principal principal) {
-
-        if(principal.getName().equals(userService.getById(id).getUsername())) {
-            return userService.getById(id);
-        }
-
-        // Return user with password as null to users other than user themself.
-        return userService.getByIdLite(id);
-    }
-
-    // Unauthenticated Request
-    @GetMapping(value = "/get")
     public User getUser(@RequestParam String id) {
 
-        // Return user with password as null to users other than user themself.
-        return userService.getByIdLite(id);
+        return userService.getById(id);
     }
+
 
     @GetMapping(value = "/get-current")
     public User get(Principal principal) {
