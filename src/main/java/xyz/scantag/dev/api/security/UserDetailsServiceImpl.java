@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.scantag.dev.api.entity.User;
-import xyz.scantag.dev.api.entity.UserRole;
 import xyz.scantag.dev.api.persistence.UserRepository;
 
 import java.util.ArrayList;
@@ -28,18 +27,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user = userRepository.findByUsername(username).get();
-        List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
+        List<GrantedAuthority> authorities = buildUserAuthority(user.getRole());
 
         return new UserDetailsImpl(user, authorities);
     }
 
-    private List<GrantedAuthority> buildUserAuthority(List<UserRole> userRoles) {
+    private List<GrantedAuthority> buildUserAuthority(String role) {
         Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
 
         //add user's authorities
-        for (UserRole userRole : userRoles) {
-            setAuths.add(new SimpleGrantedAuthority(userRole.getRoleName()));
-        }
+
+        setAuths.add(new SimpleGrantedAuthority(role));
 
         List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(setAuths);
         return result;

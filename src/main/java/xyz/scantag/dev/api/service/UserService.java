@@ -71,7 +71,7 @@ public class UserService {
                 .accountActive(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
-                .roles(userModel.getRoles())
+                .role(userModel.getRole())
                 .build();
 
         userRepository.save(user);
@@ -96,7 +96,7 @@ public class UserService {
                 .accountActive(userModel.getAccountActive())
                 .accountNonLocked(userModel.getAccountNonLocked())
                 .credentialsNonExpired(userModel.getCredentialsNonExpired())
-                .roles(userModel.getRoles())
+                .role(userModel.getRole())
                 .build();
 
         userRepository.save(user);

@@ -1,0 +1,15 @@
+server:
+    port: 443
+
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://topsy.db.elephantsql.com:5432/qfqewhsi
+        username: qfqewhsi
+        password: An6DlNh66OflVT8H-wV8Z1hoaYPiF7Of
+
+    jpa:
+        show-sql: true
+        generate-ddl: true
+        hibernate:
+            ddl-auto: create

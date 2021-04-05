@@ -3,9 +3,6 @@ package xyz.scantag.dev.api.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import xyz.scantag.dev.api.entity.UserRole;
-
-import java.util.List;
 
 @Getter @Setter
 public class UserModel {
@@ -30,5 +27,5 @@ public class UserModel {
     private Boolean accountNonLocked;
     private Boolean credentialsNonExpired;
 
-    private List<UserRole> roles;
+    private String role;
 }

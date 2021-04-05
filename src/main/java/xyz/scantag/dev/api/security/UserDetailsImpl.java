@@ -32,16 +32,15 @@ public class UserDetailsImpl implements UserDetails {
     public Collection<GrantedAuthority> getAuthorities() {
         final Set<GrantedAuthority> grantedAuths = new HashSet<GrantedAuthority>();
 
-        List<UserRole> roles = null;
+        String role = null;
 
-        if (user != null) {
-            roles = user.getRoles();
+        if (this.user != null) {
+            role = this.user.getRole();
         }
 
-        if (roles != null) {
-            for (UserRole role : roles) {
-                grantedAuths.add(new SimpleGrantedAuthority(role.getRoleName()));
-            }
+        if (role != null) {
+
+            grantedAuths.add(new SimpleGrantedAuthority(role));
         }
 
         return grantedAuths;

@@ -36,6 +36,6 @@ public class User {
     private Boolean accountNonLocked;
     private Boolean credentialsNonExpired;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private List<UserRole> roles;
+
+    private String role;
 }
