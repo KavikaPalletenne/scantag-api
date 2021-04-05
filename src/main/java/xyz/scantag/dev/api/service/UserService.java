@@ -35,11 +35,22 @@ public class UserService {
         return userRepository.findById(userId).get();
     }
 
+    public User getByUsername(String username) {
+
+        if(userRepository.findByUsername(username).isEmpty())
+        {
+            log.warn("Could not find user with username - {}", username);
+            return null;
+        }
+
+        return userRepository.findByUsername(username).get();
+    }
+
     public User getByIdLite(String userId) {
 
         if(userRepository.findById(userId).isEmpty())
         {
-            log.warn("Could not find user with username - {}", userId);
+            log.warn("Could not find user with ID - {}", userId);
             return null;
         }
 

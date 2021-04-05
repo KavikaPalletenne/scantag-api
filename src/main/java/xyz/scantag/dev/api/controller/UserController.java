@@ -36,6 +36,12 @@ public class UserController {
         return userService.getByIdLite(id);
     }
 
+    @GetMapping(value = "/get-current")
+    public User get(Principal principal) {
+
+        return userService.getByUsername(principal.getName());
+    }
+
     @PostMapping(value = "/delete")
     public  ResponseEntity<Object> deleteUser(@RequestParam String id, Principal principal) {
 
