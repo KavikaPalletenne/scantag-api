@@ -15,6 +15,8 @@ public class UserModel {
 
     private Integer contactNumber;
 
+    private String info;
+
     // Address Variables
     private String streetAddress;
     private String city;

@@ -24,6 +24,8 @@ public class User {
 
     private Integer contactNumber;
 
+    private String info;
+
     // Address Variables
     private String streetAddress;
     private String city;
