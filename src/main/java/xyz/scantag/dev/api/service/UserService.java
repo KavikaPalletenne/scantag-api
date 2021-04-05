@@ -7,7 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.RandomStringUtils;
 import xyz.scantag.dev.api.entity.User;
-import xyz.scantag.dev.api.entity.UserRole;
 import xyz.scantag.dev.api.model.UserModel;
 import xyz.scantag.dev.api.persistence.UserRepository;
 
@@ -34,6 +33,22 @@ public class UserService {
         }
 
         return userRepository.findById(userId).get();
+    }
+
+    public User getByIdLite(String userId) {
+
+        if(userRepository.findById(userId).isEmpty())
+        {
+            log.warn("Could not find user with username - {}", userId);
+            return null;
+        }
+
+        User user = userRepository.findById(userId).get();
+
+        user.setPassword(null);
+
+
+        return user;
     }
 
     public ResponseEntity<Object> createUser(UserModel userModel) {

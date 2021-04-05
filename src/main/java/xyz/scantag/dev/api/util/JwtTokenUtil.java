@@ -34,7 +34,7 @@ public class JwtTokenUtil {
     }
 
     private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date()); //TODO @Nuwantha should this be "new Date(System.curretnTimeMillis())" instead of "new Date()"
+        return extractExpiration(token).before(new Date());
     }
 
     public String generateToken(UserDetails userDetails) {

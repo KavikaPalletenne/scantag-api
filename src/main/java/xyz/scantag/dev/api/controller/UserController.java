@@ -26,23 +26,35 @@ public class UserController {
     }
 
     @GetMapping(value = "/get")
-    public User getUser(@RequestParam String id) {
+    public User getUser(@RequestParam String id, Principal principal) {
 
-        return userService.getById(id);
+        if(principal.getName().equals(userService.getById(id).getUsername())) {
+            return userService.getById(id);
+        }
+
+        // Return user with password as null to users other than user themself.
+        return userService.getByIdLite(id);
     }
 
     @PostMapping(value = "/delete")
-    public  ResponseEntity<Object> deleteUser(@RequestParam String id) {
-//        TODO: Add principal authentication before deleting user after implementing
-//        Spring Security
-        return userService.deleteUser(id);
+    public  ResponseEntity<Object> deleteUser(@RequestParam String id, Principal principal) {
+
+        if(principal.getName().equals(userService.getById(id).getUsername())) {
+            return userService.deleteUser(id);
+        }
+
+        return ResponseEntity.badRequest().body("Unauthorised to delete user");
     }
 
     @PostMapping(value = "/update")
-    public ResponseEntity<Object> updateUser(@RequestParam String id, @RequestBody UserModel userModel) {
+    public ResponseEntity<Object> updateUser(@RequestParam String id, @RequestBody UserModel userModel, Principal principal) {
 //        TODO: Add principal authentication before updating user after implementing
 //        Spring Security
-        return userService.updateUser(id, userModel);
+        if(principal.getName().equals(userService.getById(id).getUsername())) {
+            return userService.updateUser(id, userModel);
+        }
+
+        return ResponseEntity.badRequest().body("Unauthorised to update user");
     }
 
 }
