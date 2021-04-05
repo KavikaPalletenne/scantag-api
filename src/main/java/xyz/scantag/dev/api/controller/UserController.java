@@ -36,6 +36,14 @@ public class UserController {
         return userService.getByIdLite(id);
     }
 
+    // Unauthenticated Request
+    @GetMapping(value = "/get")
+    public User getUser(@RequestParam String id) {
+
+        // Return user with password as null to users other than user themself.
+        return userService.getByIdLite(id);
+    }
+
     @GetMapping(value = "/get-current")
     public User get(Principal principal) {
 
