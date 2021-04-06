@@ -31,21 +31,10 @@ public class UserController {
         return userService.getById(id);
     }
 
-
-    @GetMapping(value = "/get-current")
-    public User get(Principal principal) {
-
-        return userService.getByUsername(principal.getName());
-    }
-
     @PostMapping(value = "/delete")
-    public  ResponseEntity<Object> deleteUser(@RequestParam String id, Principal principal) {
+    public  ResponseEntity<Object> deleteUser(Principal principal) {
 
-        if(principal.getName().equals(userService.getById(id).getUsername())) {
-            return userService.deleteUser(id);
-        }
-
-        return ResponseEntity.badRequest().body("Unauthorised to delete user");
+        return userService.deleteUser(userService.getByUsername(principal.getName()).getUserId());
     }
 
     @PostMapping(value = "/update")
