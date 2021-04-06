@@ -48,7 +48,7 @@ public class UserService {
 
     public ResponseEntity<Object> createUser(UserModel userModel) {
 
-        if(userRepository.findById(userModel.getUsername()).isPresent()) {
+        if(userRepository.findByUsername(userModel.getUsername()).isPresent()) {
             log.warn("username - {} is taken", userModel.getUsername());
             return ResponseEntity.badRequest().body("Username is taken");
         }
