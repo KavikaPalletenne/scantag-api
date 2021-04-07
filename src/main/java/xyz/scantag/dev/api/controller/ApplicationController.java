@@ -12,4 +12,16 @@ public class ApplicationController {
 
         return "index";
     }
+
+    @RequestMapping("/google95919a7921b7e9dd.html")
+    public String GoogleSEOVerification() {
+
+        return "google95919a7921b7e9dd";
+    }
+
+    @RequestMapping("/google95919a7921b7e9dd")
+    public String GoogleSEOVerificationNoFileType() {
+
+        return "google95919a7921b7e9dd";
+    }
 }
