@@ -37,6 +37,8 @@ public class UserController {
         return userService.getByUsername(principal.getName());
     }
 
+    //TODO: Endpoint for "forgot password"
+
     @PostMapping(value = "/delete")
     public  ResponseEntity<Object> deleteUser(Principal principal) {
 
