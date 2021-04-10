@@ -34,19 +34,8 @@ public class User {
 
     // Address Variables
 
-    @Column(length = 100)
-    private String streetAddress;
-
-    @Column(length = 50)
-    private String city;
-
-    private Integer postcode;
-
-    @Column(length = 50)
-    private String state;
-
-    @Column(length = 50)
-    private String country;
+    @Column(length = 250)
+    private String address;
 
     // Admin Variables
     private Boolean accountActive;

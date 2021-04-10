@@ -18,11 +18,7 @@ public class UserModel {
     private String info;
 
     // Address Variables
-    private String streetAddress;
-    private String city;
-    private Integer postcode;
-    private String state;
-    private String country;
+    private String address;
 
     // Admin Variables
     private Boolean accountActive;
