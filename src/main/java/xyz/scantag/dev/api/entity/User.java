@@ -44,4 +44,6 @@ public class User {
 
     @Column(length = 7)
     private String role;
+
+    private Boolean enableNotifications;
 }

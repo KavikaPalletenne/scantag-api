@@ -26,4 +26,6 @@ public class UserModel {
     private Boolean credentialsNonExpired;
 
     private String role;
+
+    private Boolean enableNotifications;
 }

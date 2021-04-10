@@ -39,6 +39,12 @@ public class UserController {
 
     //TODO: Endpoint for "forgot password"
 
+    @PostMapping(value = "/update/enableNotifications")
+    public ResponseEntity<Object> enableNotifications(Principal principal, @RequestParam Boolean enableNotifications) {
+
+        return userService.enableNotifications(principal.getName(), enableNotifications);
+    }
+
     @PostMapping(value = "/delete")
     public  ResponseEntity<Object> deleteUser(Principal principal) {
 

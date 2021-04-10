@@ -79,6 +79,7 @@ public class UserService {
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
                 .role(userModel.getRole())
+                .enableNotifications(true)
                 .build();
 
         userRepository.save(user);
@@ -106,6 +107,20 @@ public class UserService {
         userRepository.save(user);
         log.info("User {} successfully updated", userId);
         return ResponseEntity.ok().body("User successfully updated");
+    }
+
+    public ResponseEntity<Object> enableNotifications(String username, Boolean enableNotifications) {
+
+        if(userRepository.findByUsername(username).isEmpty()) {
+            return ResponseEntity.unprocessableEntity().body("User not found");
+        }
+
+        User user = userRepository.findByUsername(username).get();
+
+        user.setEnableNotifications(enableNotifications);
+        userRepository.save(user);
+
+        return ResponseEntity.ok().body("Enabled notifcations");
     }
 
     public ResponseEntity<Object> deleteUser(String userId) {
