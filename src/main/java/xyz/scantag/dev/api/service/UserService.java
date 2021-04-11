@@ -69,7 +69,7 @@ public class UserService {
 
         User user = User.builder()
                 .userId(userId)
-                .username(userModel.getUsername())
+                .username(userModel.getEmail())
                 .password(bCryptEncoder.encode(userModel.getPassword()))
                 .email(userModel.getEmail())
                 .contactNumber(userModel.getContactNumber())
@@ -92,7 +92,7 @@ public class UserService {
 
         User user = User.builder()
                 .userId(userId)
-                .username(userModel.getUsername())
+                .username(userModel.getEmail())
                 .password(bCryptEncoder.encode(userModel.getPassword()))
                 .email(userModel.getEmail())
                 .contactNumber(userModel.getContactNumber())

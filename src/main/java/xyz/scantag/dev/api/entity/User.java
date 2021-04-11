@@ -19,13 +19,19 @@ public class User {
     @Column(length = 8)
     private String userId;
 
-    @Column(length = 50)
+    @Column(length = 8)
     private String username;
 
     private String password;
 
     @Column(length = 150)
     private String email;
+
+    @Column(length = 50)
+    private String firstName;
+
+    @Column(length = 50)
+    private String lastName;
 
     private Integer contactNumber;
 
