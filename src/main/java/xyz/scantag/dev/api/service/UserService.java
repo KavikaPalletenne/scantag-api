@@ -1,6 +1,5 @@
 package xyz.scantag.dev.api.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,12 +9,8 @@ import xyz.scantag.dev.api.entity.User;
 import xyz.scantag.dev.api.model.UserModel;
 import xyz.scantag.dev.api.persistence.UserRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
-@Slf4j
 public class UserService {
 
     @Autowired
@@ -78,7 +73,6 @@ public class UserService {
 
         userRepository.save(user);
 
-        log.info("User {} successfully created", user.getUsername());
         return ResponseEntity.ok().body("User successfully created");
     }
 
@@ -151,14 +145,11 @@ public class UserService {
             userRepository.deleteById(userId);
 
             if(userRepository.findById(userId).isPresent()) {
-                log.warn("Failed to delete user {}", userId);
                 return ResponseEntity.unprocessableEntity().body("Failed to delete user");
             }
-            log.info("Deleted user {}", userId);
             return ResponseEntity.ok().body("Deleted user successfully");
         }
 
-        log.warn("User not found");
         return ResponseEntity.unprocessableEntity().body("User not found");
     }
 }
