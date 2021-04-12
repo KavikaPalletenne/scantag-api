@@ -52,4 +52,7 @@ public class User {
     private String role;
 
     private Boolean enableNotifications;
+
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
 }
