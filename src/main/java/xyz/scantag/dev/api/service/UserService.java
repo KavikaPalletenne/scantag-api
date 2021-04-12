@@ -26,8 +26,7 @@ public class UserService {
 
     public User getById(String userId) {
 
-        if(userRepository.findById(userId).isEmpty())
-        {
+        if(userRepository.findById(userId).isEmpty()) {
             log.warn("Could not find user with username - {}", userId);
             return null;
         }
@@ -37,8 +36,7 @@ public class UserService {
 
     public User getByUsername(String username) {
 
-        if(userRepository.findByUsername(username).isEmpty())
-        {
+        if(userRepository.findByUsername(username).isEmpty()) {
             log.warn("Could not find user with username - {}", username);
             return null;
         }
@@ -121,6 +119,34 @@ public class UserService {
         userRepository.save(user);
 
         return ResponseEntity.ok().body("Enabled notifcations");
+    }
+
+    public ResponseEntity<Object> updateResetPasswordToken(String token, String email) {
+
+        if(userRepository.findByEmail(email).isEmpty()) {
+            return ResponseEntity.badRequest().body("Could not find user");
+        }
+
+        User user = userRepository.findByEmail(email).get();
+        user.setResetPasswordToken(token);
+        userRepository.save(user);
+
+        return ResponseEntity.ok().body("Reset password token set");
+    }
+
+    public User getByResetPasswordToken(String token) {
+
+        return userRepository.findByResetPasswordToken(token).get();
+    }
+
+    public void updatePassword(User user, String newPassword) {
+
+        String encodedPassword = bCryptEncoder.encode(newPassword);
+
+        user.setPassword(encodedPassword);
+
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
     }
 
     public ResponseEntity<Object> deleteUser(String userId) {
