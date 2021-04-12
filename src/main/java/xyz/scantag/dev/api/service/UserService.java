@@ -123,6 +123,11 @@ public class UserService {
 
     public User getByResetPasswordToken(String token) {
 
+        if(userRepository.findByResetPasswordToken(token).isEmpty())
+        {
+            return null;
+        }
+
         return userRepository.findByResetPasswordToken(token).get();
     }
 
