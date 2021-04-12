@@ -27,7 +27,6 @@ public class UserService {
     public User getById(String userId) {
 
         if(userRepository.findById(userId).isEmpty()) {
-            log.warn("Could not find user with username - {}", userId);
             return null;
         }
 
@@ -37,7 +36,6 @@ public class UserService {
     public User getByUsername(String username) {
 
         if(userRepository.findByUsername(username).isEmpty()) {
-            log.warn("Could not find user with username - {}", username);
             return null;
         }
 
@@ -47,11 +45,9 @@ public class UserService {
     public ResponseEntity<Object> createUser(UserModel userModel) {
 
         if(userRepository.findByUsername(userModel.getUsername()).isPresent()) {
-            log.warn("username - {} is taken", userModel.getUsername());
             return ResponseEntity.badRequest().body("Username is taken");
         }
         else if(userRepository.findByEmail(userModel.getEmail()).isPresent()) {
-            log.warn("An account with this email - {} already exists", userModel.getEmail());
             return ResponseEntity.badRequest().body("An account with this email already exists");
         }
 
@@ -103,7 +99,6 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
-        log.info("User {} successfully updated", userId);
         return ResponseEntity.ok().body("User successfully updated");
     }
 
@@ -121,17 +116,15 @@ public class UserService {
         return ResponseEntity.ok().body("Enabled notifcations");
     }
 
-    public ResponseEntity<Object> updateResetPasswordToken(String token, String email) {
+    public void updateResetPasswordToken(String token, String email) {
 
         if(userRepository.findByEmail(email).isEmpty()) {
-            return ResponseEntity.badRequest().body("Could not find user");
+            return;
         }
 
         User user = userRepository.findByEmail(email).get();
         user.setResetPasswordToken(token);
         userRepository.save(user);
-
-        return ResponseEntity.ok().body("Reset password token set");
     }
 
     public User getByResetPasswordToken(String token) {
@@ -139,7 +132,7 @@ public class UserService {
         return userRepository.findByResetPasswordToken(token).get();
     }
 
-    public void updatePassword(User user, String newPassword) {
+    public ResponseEntity<Object> updatePassword(User user, String newPassword) {
 
         String encodedPassword = bCryptEncoder.encode(newPassword);
 
@@ -147,6 +140,8 @@ public class UserService {
 
         user.setResetPasswordToken(null);
         userRepository.save(user);
+
+        return ResponseEntity.ok().body("Password updated");
     }
 
     public ResponseEntity<Object> deleteUser(String userId) {
