@@ -53,8 +53,6 @@ public class UserController {
         return userService.getByUsername(principal.getName());
     }
 
-    //TODO: Endpoint for "forgot password"
-
     @PostMapping(value = "/update/enableNotifications")
     public ResponseEntity<Object> enableNotifications(Principal principal, @RequestParam Boolean enableNotifications) {
 
@@ -78,6 +76,7 @@ public class UserController {
         return ResponseEntity.badRequest().body("Unauthorised to update user");
     }
 
+
     // Forgot Password Functionality
 
     @PostMapping("/auth/forgotPassword")
@@ -99,10 +98,6 @@ public class UserController {
         }
 
         return ResponseEntity.ok().body("If your email has been used to register an account, a reset password link has been sent to your email.");
-    }
-
-    public void sendEmail(){
-
     }
 
     @PostMapping("/resetPassword")
