@@ -19,12 +19,12 @@ public class User {
     @Column(length = 8)
     private String userId;
 
-    @Column(length = 150)
+    @Column(length = 320)
     private String username;
 
     private String password;
 
-    @Column(length = 150)
+    @Column(length = 320)
     private String email;
 
     @Column(length = 50)
