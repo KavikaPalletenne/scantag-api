@@ -90,7 +90,7 @@ public class UserController {
 
         try {
             userService.updateResetPasswordToken(token, email);
-            String resetPasswordLink = System.getProperty("FRONTEND_URL","https://scantag.co") + "/auth/reset-password?token=" + token;
+            String resetPasswordLink = System.getenv("FRONTEND_URL") + "/auth/reset-password?token=" + token;
             emailService.sendPasswordResetEmail(email, resetPasswordLink);
         } catch (UnsupportedEncodingException | MessagingException e) {
 
