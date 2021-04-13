@@ -5,13 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.scantag.dev.api.entity.User;
 import xyz.scantag.dev.api.model.UserModel;
 import xyz.scantag.dev.api.persistence.UserRepository;
 
 import java.util.List;
 
-
+@Transactional
 @Service
 public class UserService {
 
