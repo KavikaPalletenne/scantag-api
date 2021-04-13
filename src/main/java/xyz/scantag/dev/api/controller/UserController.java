@@ -62,7 +62,7 @@ public class UserController {
     @PostMapping(value = "/delete")
     public  ResponseEntity<Object> deleteUser(Principal principal) {
 
-        return userService.deleteUser(userService.getByUsername(principal.getName()).getUserId());
+        return userService.deleteUser(principal.getName());
     }
 
     @PostMapping(value = "/update")
@@ -70,6 +70,7 @@ public class UserController {
 //        TODO: Add principal authentication before updating user after implementing
 //        Spring Security
         if(principal.getName().equals(userService.getById(id).getUsername())) {
+
             return userService.updateUser(id, userModel);
         }
 

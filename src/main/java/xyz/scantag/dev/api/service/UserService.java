@@ -9,6 +9,8 @@ import xyz.scantag.dev.api.entity.User;
 import xyz.scantag.dev.api.model.UserModel;
 import xyz.scantag.dev.api.persistence.UserRepository;
 
+import java.util.List;
+
 
 @Service
 public class UserService {
@@ -143,13 +145,13 @@ public class UserService {
         return ResponseEntity.ok().body("Password updated");
     }
 
-    public ResponseEntity<Object> deleteUser(String userId) {
+    public ResponseEntity<Object> deleteUser(String username) {
 
-        if(userRepository.findById(userId).isPresent()) {
+        if(userRepository.findByUsername(username).isPresent()) {
 
-            userRepository.deleteById(userId);
+            List<User> deletedUsers = userRepository.deleteByUsername(username);
 
-            if(userRepository.findById(userId).isPresent()) {
+            if(userRepository.findByUsername(username).isPresent()) {
                 return ResponseEntity.unprocessableEntity().body("Failed to delete user");
             }
             return ResponseEntity.ok().body("Deleted user successfully");
