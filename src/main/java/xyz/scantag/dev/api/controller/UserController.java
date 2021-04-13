@@ -67,8 +67,7 @@ public class UserController {
 
     @PostMapping(value = "/update")
     public ResponseEntity<Object> updateUser(@RequestParam String id, @RequestBody UserModel userModel, Principal principal) {
-//        TODO: Add principal authentication before updating user after implementing
-//        Spring Security
+
         if(principal.getName().equals(userService.getById(id).getUsername())) {
 
             return userService.updateUser(id, userModel);
