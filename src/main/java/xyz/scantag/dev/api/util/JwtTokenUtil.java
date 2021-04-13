@@ -14,7 +14,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtTokenUtil {
-    private String SECRET_KEY = System.getProperty("JWT_SECRET", "Scantag-Secret#1234$");
+    private String SECRET_KEY = System.getenv("JWT_SECRET");
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
