@@ -28,10 +28,10 @@ public class User {
     @Column(length = 320)
     private String email;
 
-    @Column(length = 50)
+    @Column(length = 300)
     private String firstName;
 
-    @Column(length = 50)
+    @Column(length = 300)
     private String lastName;
 
     private Integer contactNumber;
