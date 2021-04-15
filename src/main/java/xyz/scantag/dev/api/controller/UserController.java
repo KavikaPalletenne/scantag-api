@@ -108,9 +108,7 @@ public class UserController {
         }
 
         User user = userService.getByResetPasswordToken(token);
-        userService.updatePassword(user, password);
-
-        return ResponseEntity.ok().body("Successfully changed password");
+        return userService.updatePassword(user, password);
     }
 
 }

@@ -49,12 +49,9 @@ public class UserService {
             return ResponseEntity.badRequest().body("An account with this email already exists");
         }
 
-        String userId = RandomStringUtils.randomAlphanumeric(8);;
+        String userId = RandomStringUtils.randomAlphanumeric(8);
 
-        while (true) {
-            if(userRepository.findById(userId).isEmpty()) {
-                break;
-            }
+        while (userRepository.findById(userId).isPresent()) {
             userId = RandomStringUtils.randomAlphanumeric(8);
         }
 
@@ -114,7 +111,7 @@ public class UserService {
         user.setEnableNotifications(enableNotifications);
         userRepository.save(user);
 
-        return ResponseEntity.ok().body("Enabled notifcations");
+        return ResponseEntity.ok().body("Enabled notifications");
     }
 
     public void updateResetPasswordToken(String token, String email) {
@@ -147,7 +144,7 @@ public class UserService {
         user.setResetPasswordToken(null);
         userRepository.save(user);
 
-        return ResponseEntity.ok().body("Password updated");
+        return ResponseEntity.ok().body("Successfully updated password");
     }
 
     public ResponseEntity<Object> deleteUser(String username) {
@@ -159,7 +156,7 @@ public class UserService {
             if(userRepository.findByUsername(username).isPresent()) {
                 return ResponseEntity.unprocessableEntity().body("Failed to delete user");
             }
-            return ResponseEntity.ok().body("Deleted user successfully");
+            return ResponseEntity.ok().body("Successfully deleted user");
         }
 
         return ResponseEntity.unprocessableEntity().body("User not found");
