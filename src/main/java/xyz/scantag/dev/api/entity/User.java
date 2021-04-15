@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "t_user")
@@ -54,6 +53,6 @@ public class User {
 
     private Boolean enableNotifications;
 
-    @Column(name = "reset_password_token")
+    @Column(length = 30)
     private String resetPasswordToken;
 }
