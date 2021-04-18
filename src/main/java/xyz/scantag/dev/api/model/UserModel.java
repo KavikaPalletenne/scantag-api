@@ -16,7 +16,7 @@ public class UserModel {
     private String firstName;
     private String lastName;
 
-    private Integer contactNumber;
+    private String contactNumber;
 
     private String info;
 

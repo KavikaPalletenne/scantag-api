@@ -33,7 +33,8 @@ public class User {
     @Column(length = 300)
     private String lastName;
 
-    private Integer contactNumber;
+    @Column(length = 50)
+    private String contactNumber;
 
     @Column(length = 200)
     private String info;
