@@ -70,7 +70,7 @@ public class UserService {
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
                 .role(userModel.getRole())
-                .enableNotifications(true)
+                .enableNotifications(userModel.getEnableNotifications())
                 .build();
 
         userRepository.save(user);
@@ -94,6 +94,7 @@ public class UserService {
                 .accountNonLocked(userModel.getAccountNonLocked())
                 .credentialsNonExpired(userModel.getCredentialsNonExpired())
                 .role(userModel.getRole())
+                .enableNotifications(userModel.getEnableNotifications())
                 .build();
 
         userRepository.save(user);
