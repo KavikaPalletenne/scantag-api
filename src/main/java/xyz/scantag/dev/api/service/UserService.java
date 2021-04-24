@@ -89,7 +89,8 @@ public class UserService {
 
     public ResponseEntity<Object> updateUser(String userId, UserModel userModel) {
 
-        String oldPassword = userRepository.findByUsername(userModel.getEmail()).get().getPassword();
+        User oldUser = userRepository.findByUsername(userModel.getEmail()).get();
+        String oldPassword = oldUser.getPassword();
 
         User user = User.builder()
                 .userId(userId)
@@ -101,11 +102,11 @@ public class UserService {
                 .contactNumber(userModel.getContactNumber())
                 .info(userModel.getInfo())
                 .address(userModel.getAddress())
-                .accountActive(userModel.getAccountActive())
-                .accountNonLocked(userModel.getAccountNonLocked())
-                .credentialsNonExpired(userModel.getCredentialsNonExpired())
+                .accountActive(oldUser.getAccountActive())
+                .accountNonLocked(oldUser.getAccountNonLocked())
+                .credentialsNonExpired(oldUser.getCredentialsNonExpired())
                 .role(userModel.getRole())
-                .enableNotifications(userModel.getEnableNotifications())
+                .enableNotifications(oldUser.getEnableNotifications())
                 .build();
 
         userRepository.save(user);
