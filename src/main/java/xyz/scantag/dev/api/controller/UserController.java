@@ -47,6 +47,12 @@ public class UserController {
         return userService.getById(id);
     }
 
+    @GetMapping(value="/get")
+    public User getUserByEmail(@RequestParam String email) {
+
+        return userService.getByUsername(email);
+    }
+
     @GetMapping(value = "/get/current")
     public User getCurrentUser(Principal principal) {
 
