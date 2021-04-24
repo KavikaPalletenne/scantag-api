@@ -112,6 +112,24 @@ public class UserService {
         return ResponseEntity.ok().body("User successfully updated");
     }
 
+    public ResponseEntity<Object> updatePassword(String username, String oldPassword, String newPassword) {
+
+        if(userRepository.findByUsername(username).isEmpty()) {
+            return ResponseEntity.badRequest().body("User does not exist");
+        }
+
+        User user = userRepository.findByUsername(username).get();
+
+        if(!bCryptEncoder.matches(oldPassword, user.getPassword())) {
+            return ResponseEntity.badRequest().body("Wrong password");
+        }
+
+        user.setPassword(bCryptEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        return ResponseEntity.ok().body("Successfully updated password");
+    }
+
     public ResponseEntity<Object> enableNotifications(String username, Boolean enableNotifications) {
 
         if(userRepository.findByUsername(username).isEmpty()) {
