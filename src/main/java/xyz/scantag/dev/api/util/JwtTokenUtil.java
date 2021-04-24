@@ -3,7 +3,6 @@ package xyz.scantag.dev.api.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import xyz.scantag.dev.api.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtTokenUtil {
-    private String SECRET_KEY = System.getenv("JWT_SECRET");
+    final String SECRET_KEY = System.getenv("JWT_SECRET");
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -44,7 +43,7 @@ public class JwtTokenUtil {
 
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 10 * 60 * 1)) // 10 min expiry - to increase, change 10 to 60, then 1 to how many hours needed
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 1)) // 1hr token expiry - to increase, change 1 to how many hours needed
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
