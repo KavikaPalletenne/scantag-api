@@ -102,9 +102,9 @@ public class UserService {
                 .contactNumber(userModel.getContactNumber())
                 .info(userModel.getInfo())
                 .address(userModel.getAddress())
-                .accountActive(oldUser.getAccountActive())
-                .accountNonLocked(oldUser.getAccountNonLocked())
-                .credentialsNonExpired(oldUser.getCredentialsNonExpired())
+                .accountActive(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
                 .role(userModel.getRole())
                 .enableNotifications(oldUser.getEnableNotifications())
                 .build();
