@@ -89,10 +89,12 @@ public class UserService {
 
     public ResponseEntity<Object> updateUser(String userId, UserModel userModel) {
 
+        String oldPassword = userRepository.findByUsername(userModel.getEmail()).get().getPassword();
+
         User user = User.builder()
                 .userId(userId)
                 .username(userModel.getEmail())
-                .password(bCryptEncoder.encode(userModel.getPassword()))
+                .password(oldPassword)
                 .email(userModel.getEmail())
                 .firstName(userModel.getFirstName())
                 .lastName(userModel.getLastName())
