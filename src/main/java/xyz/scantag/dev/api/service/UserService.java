@@ -25,7 +25,11 @@ public class UserService {
     public User getById(String userId) {
 
         if(userRepository.findById(userId).isEmpty()) {
-            return null;
+            User user = User.builder()
+                    .email("empty")
+                    .build();
+
+            return user;
         }
 
         return userRepository.findById(userId).get();
@@ -34,7 +38,12 @@ public class UserService {
     public User getByUsername(String username) {
 
         if(userRepository.findByUsername(username).isEmpty()) {
-            return null;
+
+            User user = User.builder()
+                    .email("empty")
+                    .build();
+
+            return user;
         }
 
         return userRepository.findByUsername(username).get();
@@ -130,7 +139,11 @@ public class UserService {
 
         if(userRepository.findByResetPasswordToken(token).isEmpty())
         {
-            return null;
+            User user = User.builder()
+                    .email("empty")
+                    .build();
+
+            return user;
         }
 
         return userRepository.findByResetPasswordToken(token).get();
