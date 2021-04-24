@@ -59,6 +59,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/api/v1/auth/authenticate").permitAll()
                 .antMatchers("/api/v1/users/create").permitAll() //TODO: Add .hasIpAddress("11.11.11.11") so only server can access
                 .antMatchers("/api/v1/users/get").permitAll() //TODO: Add .hasIpAddress("11.11.11.11") so only server can access
+                .antMatchers("/api/v1/users/getByEmail").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/google95919a7921b7e9dd.html").permitAll()
                 .antMatchers("/google95919a7921b7e9dd").permitAll()
