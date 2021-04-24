@@ -82,6 +82,12 @@ public class UserController {
         return ResponseEntity.badRequest().body("Unauthorised to update user");
     }
 
+    @PostMapping(value = "/updatePassword")
+    public ResponseEntity<Object> updatePassword(@RequestParam String oldPassword, @RequestParam String newPassword, Principal principal) {
+
+        return userService.updatePassword(principal.getName(), oldPassword, newPassword);
+    }
+
 
     // Forgot Password Functionality
 
