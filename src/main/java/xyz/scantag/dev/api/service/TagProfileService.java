@@ -58,7 +58,7 @@ public class TagProfileService {
         return ResponseEntity.ok().body("Successfully created tag profile");
     }
 
-    public List<TagProfile> getByUserId(String userId) {
+    public List<TagProfile> getAllByUserId(String userId) {
 
         return tagProfileRepository.findAllByUserId(userId);
     }

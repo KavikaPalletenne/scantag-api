@@ -3,9 +3,6 @@ package xyz.scantag.dev.api.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import xyz.scantag.dev.api.entity.TagProfile;
-
-import java.util.List;
 
 @Getter @Setter
 public class UserModel {

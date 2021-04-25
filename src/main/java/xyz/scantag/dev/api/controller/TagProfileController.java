@@ -29,15 +29,21 @@ public class TagProfileController {
         return tagProfileService.createTagProfile(userId, tagProfileModel);
     }
 
-    @GetMapping(value = "/get")
-    public List<TagProfile> getByUserId(@RequestParam String userId, Principal principal) {
+    @GetMapping(value = "/getAllByUserId")
+    public List<TagProfile> getAllByUserId(@RequestParam String userId, Principal principal) {
 
         if(!principal.getName().equals(userService.getById(userId).getEmail())) {
 
             return null;
         }
 
-        return tagProfileService.getByUserId(userId);
+        return tagProfileService.getAllByUserId(userId);
+    }
+
+    @GetMapping(value = "/get")
+    public TagProfile getById(@RequestParam String profileId) {
+
+        return tagProfileService.getById(profileId);
     }
 
     @PostMapping(value = "/delete")
