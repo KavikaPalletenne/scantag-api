@@ -99,6 +99,12 @@ public class UserService {
         User oldUser = userRepository.findByUsername(userModel.getEmail()).get();
         String oldPassword = oldUser.getPassword();
 
+        Integer maxProfiles = 2;
+
+        if(userModel.getRole().equals("premium")) {
+            maxProfiles = 200;
+        }
+
         User user = User.builder()
                 .userId(userId)
                 .username(userModel.getEmail())
@@ -109,7 +115,7 @@ public class UserService {
                 .contactNumber(userModel.getContactNumber())
                 .info(userModel.getInfo())
                 .address(userModel.getAddress())
-                .maxProfiles(oldUser.getMaxProfiles())
+                .maxProfiles(maxProfiles)
                 .usedProfiles(oldUser.getUsedProfiles())
                 .accountActive(true)
                 .accountNonLocked(true)
