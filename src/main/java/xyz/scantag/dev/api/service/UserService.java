@@ -67,7 +67,7 @@ public class UserService {
         Integer maxProfiles = 1;
 
         if(userModel.getRole().equals("premium")) {
-            maxProfiles = 200;
+            maxProfiles = 30;
         }
 
         User user = User.builder()
@@ -102,7 +102,7 @@ public class UserService {
         Integer maxProfiles = 1;
 
         if(userModel.getRole().equals("premium")) {
-            maxProfiles = 200;
+            maxProfiles = 30;
         }
 
         User user = User.builder()
