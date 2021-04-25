@@ -64,7 +64,7 @@ public class UserService {
             userId = RandomStringUtils.randomAlphanumeric(8);
         }
 
-        Integer maxProfiles = 2;
+        Integer maxProfiles = 1;
 
         if(userModel.getRole().equals("premium")) {
             maxProfiles = 200;
@@ -99,7 +99,7 @@ public class UserService {
         User oldUser = userRepository.findByUsername(userModel.getEmail()).get();
         String oldPassword = oldUser.getPassword();
 
-        Integer maxProfiles = 2;
+        Integer maxProfiles = 1;
 
         if(userModel.getRole().equals("premium")) {
             maxProfiles = 200;
