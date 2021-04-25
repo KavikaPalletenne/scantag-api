@@ -8,6 +8,8 @@ public class TagProfileModel {
 
     private String profileId;
 
+    private String profileName;
+
     private String userId;
 
     private Boolean showEmail;

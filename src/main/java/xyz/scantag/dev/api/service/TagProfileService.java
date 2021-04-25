@@ -45,6 +45,7 @@ public class TagProfileService {
 
         TagProfile tagProfile = TagProfile.builder()
                 .profileId(profileId)
+                .profileName(tagProfileModel.getProfileName())
                 .userId(userId)
                 .showEmail(tagProfileModel.getShowEmail())
                 .showName(tagProfileModel.getShowName())

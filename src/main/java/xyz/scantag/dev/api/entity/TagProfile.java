@@ -18,6 +18,10 @@ public class TagProfile {
     @Column(length = 12)
     private String profileId;
 
+    @Column(length = 50)
+    private String profileName;
+
+    @Column(length = 8)
     private String userId;
 
     private Boolean showEmail;
