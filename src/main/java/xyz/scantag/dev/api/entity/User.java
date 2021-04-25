@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "t_user")
@@ -39,10 +40,12 @@ public class User {
     @Column(length = 200)
     private String info;
 
-    // Address Variables
-
     @Column(length = 250)
     private String address;
+
+    // Profiles feature
+    private Integer maxProfiles;
+    private Integer usedProfiles;
 
     // Admin Variables
     private Boolean accountActive;

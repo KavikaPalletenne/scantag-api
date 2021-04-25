@@ -64,6 +64,11 @@ public class UserService {
             userId = RandomStringUtils.randomAlphanumeric(8);
         }
 
+        Integer maxProfiles = 2;
+
+        if(userModel.getRole().equals("premium")) {
+            maxProfiles = 200;
+        }
 
         User user = User.builder()
                 .userId(userId)
@@ -75,6 +80,8 @@ public class UserService {
                 .contactNumber(userModel.getContactNumber())
                 .info(userModel.getInfo())
                 .address(userModel.getAddress())
+                .maxProfiles(maxProfiles)
+                .usedProfiles(0)
                 .accountActive(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
@@ -102,6 +109,8 @@ public class UserService {
                 .contactNumber(userModel.getContactNumber())
                 .info(userModel.getInfo())
                 .address(userModel.getAddress())
+                .maxProfiles(oldUser.getMaxProfiles())
+                .usedProfiles(oldUser.getUsedProfiles())
                 .accountActive(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)

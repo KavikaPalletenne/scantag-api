@@ -3,6 +3,9 @@ package xyz.scantag.dev.api.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import xyz.scantag.dev.api.entity.TagProfile;
+
+import java.util.List;
 
 @Getter @Setter
 public class UserModel {
@@ -20,10 +23,12 @@ public class UserModel {
 
     private String info;
 
-    // Address Variables
     private String address;
 
-    // Admin Variables
+    // Profiles feature
+    private Integer maxProfiles;
+    private Integer usedProfiles;
+
     private Boolean accountActive;
     private Boolean accountNonLocked;
     private Boolean credentialsNonExpired;
