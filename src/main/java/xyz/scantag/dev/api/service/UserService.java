@@ -66,8 +66,10 @@ public class UserService {
 
         Integer maxProfiles = 1;
 
-        if(userModel.getRole().equals("premium")) {
-            maxProfiles = 30;
+        if(userModel.getRole() != null) {
+            if (userModel.getRole().equals("premium")) {
+                maxProfiles = 30;
+            }
         }
 
         User user = User.builder()
@@ -82,7 +84,7 @@ public class UserService {
                 .accountActive(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
-                .role("general")
+                .role(userModel.getRole())
                 .enableNotifications(userModel.getEnableNotifications())
                 .build();
 
@@ -98,8 +100,10 @@ public class UserService {
 
         Integer maxProfiles = 1;
 
-        if(userModel.getRole().equals("premium")) {
-            maxProfiles = 30;
+        if(userModel.getRole() != null) {
+            if (userModel.getRole().equals("premium")) {
+                maxProfiles = 30;
+            }
         }
 
         User user = User.builder()
@@ -114,7 +118,7 @@ public class UserService {
                 .accountActive(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
-                .role(oldUser.getRole())
+                .role(userModel.getRole())
                 .enableNotifications(oldUser.getEnableNotifications())
                 .build();
 
