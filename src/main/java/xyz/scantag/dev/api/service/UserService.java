@@ -77,15 +77,12 @@ public class UserService {
                 .email(userModel.getEmail())
                 .firstName(userModel.getFirstName())
                 .lastName(userModel.getLastName())
-                .contactNumber(userModel.getContactNumber())
-                .info(userModel.getInfo())
-                .address(userModel.getAddress())
                 .maxProfiles(maxProfiles)
                 .usedProfiles(0)
                 .accountActive(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
-                .role(userModel.getRole())
+                .role("general")
                 .enableNotifications(userModel.getEnableNotifications())
                 .build();
 
@@ -112,15 +109,12 @@ public class UserService {
                 .email(userModel.getEmail())
                 .firstName(userModel.getFirstName())
                 .lastName(userModel.getLastName())
-                .contactNumber(userModel.getContactNumber())
-                .info(userModel.getInfo())
-                .address(userModel.getAddress())
                 .maxProfiles(maxProfiles)
                 .usedProfiles(oldUser.getUsedProfiles())
                 .accountActive(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
-                .role(userModel.getRole())
+                .role(oldUser.getRole())
                 .enableNotifications(oldUser.getEnableNotifications())
                 .build();
 

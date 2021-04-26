@@ -16,16 +16,6 @@ public class UserModel {
     private String firstName;
     private String lastName;
 
-    private String contactNumber;
-
-    private String info;
-
-    private String address;
-
-    // Profiles feature
-    private Integer maxProfiles;
-    private Integer usedProfiles;
-
     private Boolean accountActive;
     private Boolean accountNonLocked;
     private Boolean credentialsNonExpired;

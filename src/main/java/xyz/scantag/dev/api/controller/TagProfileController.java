@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import xyz.scantag.dev.api.entity.TagProfile;
-import xyz.scantag.dev.api.model.TagProfileModel;
-import xyz.scantag.dev.api.service.TagProfileService;
+import xyz.scantag.dev.api.entity.Tag;
+import xyz.scantag.dev.api.model.TagModel;
+import xyz.scantag.dev.api.service.TagService;
 import xyz.scantag.dev.api.service.UserService;
 
 import java.security.Principal;
@@ -18,47 +18,59 @@ import java.util.List;
 public class TagProfileController {
 
     @Autowired
-    private TagProfileService tagProfileService;
+    private TagService tagService;
 
     @Autowired
     private UserService userService;
 
     @PostMapping(value = "/create", consumes = "application/json")
-    public ResponseEntity<Object> createTagProfile(@RequestParam String userId, @RequestBody TagProfileModel tagProfileModel) {
+    public ResponseEntity<Object> createTag(@RequestParam String userId, @RequestBody TagModel tagModel) {
 
-        return tagProfileService.createTagProfile(userId, tagProfileModel);
+        return tagService.createTag(userId, tagModel);
+    }
+
+    @PostMapping(value = "/update", consumes = "application/json")
+    public ResponseEntity<Object> updateTag(@RequestParam String tagId, @RequestBody TagModel tagModel, Principal principal) {
+
+        if(!userService.getByUsername(principal.getName()).getUserId().equals(tagService.getById(tagId).getUserId())) {
+
+            return ResponseEntity.badRequest().body("Unauthorised to update tag");
+        }
+
+        return tagService.updateTag(tagId, tagModel);
+
     }
 
     @GetMapping(value = "/getAllByUserId")
-    public List<TagProfile> getAllByUserId(@RequestParam String userId, Principal principal) {
+    public List<Tag> getAllByUserId(@RequestParam String userId, Principal principal) {
 
         if(!principal.getName().equals(userService.getById(userId).getEmail())) {
 
             return null;
         }
 
-        return tagProfileService.getAllByUserId(userId);
+        return tagService.getAllByUserId(userId);
     }
 
     @GetMapping(value = "/get")
-    public TagProfile getById(@RequestParam String profileId) {
+    public Tag getById(@RequestParam String profileId) {
 
-        return tagProfileService.getById(profileId);
+        return tagService.getById(profileId);
     }
 
     @PostMapping(value = "/delete")
     public ResponseEntity<Object> deleteById(@RequestParam String profileId, Principal principal){
 
-        TagProfile tagProfile = tagProfileService.getById(profileId);
+        Tag tag = tagService.getById(profileId);
 
-        if(tagProfile == null) {
+        if(tag == null) {
             return ResponseEntity.badRequest().body("Could not find profile");
         }
 
-        if(!principal.getName().equals(userService.getById(tagProfile.getUserId()).getEmail())) {
+        if(!principal.getName().equals(userService.getById(tag.getUserId()).getEmail())) {
             return ResponseEntity.badRequest().body("Unauthorised to delete profile");
         }
 
-        return tagProfileService.deleteByProfileId(profileId);
+        return tagService.deleteByTagId(profileId);
     }
 }

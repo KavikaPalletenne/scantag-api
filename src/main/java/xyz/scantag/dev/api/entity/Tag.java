@@ -12,26 +12,34 @@ import javax.persistence.*;
 @Table(name = "t_tag_profile")
 @SuperBuilder
 @NoArgsConstructor
-public class TagProfile {
+public class Tag {
 
     @Id
     @Column(length = 12)
-    private String profileId;
+    private String tagId;
 
     @Column(length = 50)
     private String profileName;
 
+    @Column(length = 320)
+    private String email;
+
     @Column(length = 8)
     private String userId;
 
-    private Boolean showEmail;
+    @Column(length = 300)
+    private String firstName;
 
-    private Boolean showName;
+    @Column(length = 300)
+    private String lastName;
 
-    private Boolean showContactNumber;
+    @Column(length = 50)
+    private String contactNumber;
 
-    private Boolean showInfo;
+    @Column(length = 200)
+    private String info;
 
-    private Boolean showAddress;
+    @Column(length = 250)
+    private String address;
 
 }
