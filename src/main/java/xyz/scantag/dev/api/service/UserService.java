@@ -101,7 +101,7 @@ public class UserService {
         Integer maxTags = 1;
 
         if(userModel.getRole() != null) {
-            if (userModel.getRole().equals("premium")) {
+            if (userModel.getRole().equals("premium") || oldUser.getRole().equals("premium")) {
                 maxTags = 30;
             }
         }
