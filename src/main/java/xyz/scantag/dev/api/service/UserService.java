@@ -106,6 +106,10 @@ public class UserService {
             }
         }
 
+        if(userModel.getRole() == null) {
+            userModel.setRole(oldUser.getRole());
+        }
+
         User user = User.builder()
                 .userId(userId)
                 .username(userModel.getEmail())
