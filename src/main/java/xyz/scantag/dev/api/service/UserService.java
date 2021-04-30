@@ -101,13 +101,17 @@ public class UserService {
         Integer maxTags = 1;
 
         if(userModel.getRole() != null) {
-            if (userModel.getRole().equals("premium") || oldUser.getRole().equals("premium")) {
+            if (userModel.getRole().equals("premium")) {
                 maxTags = 30;
             }
         }
 
         if(userModel.getRole() == null) {
             userModel.setRole(oldUser.getRole());
+
+            if(oldUser.getRole().equals("premium")) {
+                maxTags = 30;
+            }
         }
 
         User user = User.builder()
