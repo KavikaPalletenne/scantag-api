@@ -26,4 +26,6 @@ public class TagModel {
     private String info;
 
     private String address;
+
+    private Boolean enableNotifications;
 }

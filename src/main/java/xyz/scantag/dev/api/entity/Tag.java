@@ -42,4 +42,6 @@ public class Tag {
     @Column(length = 250)
     private String address;
 
+    private Boolean enableNotifications;
+
 }

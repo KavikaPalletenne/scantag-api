@@ -54,6 +54,7 @@ public class TagService {
                 .contactNumber(tagModel.getContactNumber())
                 .info(tagModel.getInfo())
                 .address(tagModel.getAddress())
+                .enableNotifications(tagModel.getEnableNotifications())
                 .build();
 
         tagRepository.save(tag);
@@ -84,6 +85,7 @@ public class TagService {
                 .contactNumber(tagModel.getContactNumber())
                 .info(tagModel.getInfo())
                 .address(tagModel.getAddress())
+                .enableNotifications(tagModel.getEnableNotifications())
                 .build();
 
         tagRepository.save(newTag);
