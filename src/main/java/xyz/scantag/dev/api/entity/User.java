@@ -34,8 +34,8 @@ public class User {
     private String lastName;
 
     // Profiles feature
-    private Integer maxProfiles;
-    private Integer usedProfiles;
+    private Integer maxTags;
+    private Integer usedTags;
 
     // Admin Variables
     private Boolean accountActive;

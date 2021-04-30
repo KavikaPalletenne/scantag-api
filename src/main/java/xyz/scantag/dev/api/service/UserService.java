@@ -64,11 +64,11 @@ public class UserService {
             userId = RandomStringUtils.randomAlphanumeric(8);
         }
 
-        Integer maxProfiles = 1;
+        Integer maxTags = 1;
 
         if(userModel.getRole() != null) {
             if (userModel.getRole().equals("premium")) {
-                maxProfiles = 30;
+                maxTags = 30;
             }
         }
 
@@ -79,8 +79,8 @@ public class UserService {
                 .email(userModel.getEmail())
                 .firstName(userModel.getFirstName())
                 .lastName(userModel.getLastName())
-                .maxProfiles(maxProfiles)
-                .usedProfiles(0)
+                .maxTags(maxTags)
+                .usedTags(0)
                 .accountActive(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
@@ -98,11 +98,11 @@ public class UserService {
         User oldUser = userRepository.findByUsername(userModel.getEmail()).get();
         String oldPassword = oldUser.getPassword();
 
-        Integer maxProfiles = 1;
+        Integer maxTags = 1;
 
         if(userModel.getRole() != null) {
             if (userModel.getRole().equals("premium")) {
-                maxProfiles = 30;
+                maxTags = 30;
             }
         }
 
@@ -113,8 +113,8 @@ public class UserService {
                 .email(userModel.getEmail())
                 .firstName(userModel.getFirstName())
                 .lastName(userModel.getLastName())
-                .maxProfiles(maxProfiles)
-                .usedProfiles(oldUser.getUsedProfiles())
+                .maxTags(maxTags)
+                .usedTags(oldUser.getUsedTags())
                 .accountActive(true)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)

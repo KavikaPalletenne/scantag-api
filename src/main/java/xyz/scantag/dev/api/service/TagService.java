@@ -33,7 +33,7 @@ public class TagService {
 
         User user = userRepository.findById(userId).get();
 
-        if(user.getUsedProfiles() >= user.getMaxProfiles()) {
+        if(user.getUsedTags() >= user.getMaxTags()) {
             return ResponseEntity.badRequest().body("Maximum tag limit exceeded");
         }
 
@@ -58,7 +58,7 @@ public class TagService {
 
         tagRepository.save(tag);
 
-        user.setUsedProfiles(user.getUsedProfiles() + 1);
+        user.setUsedTags(user.getUsedTags() + 1);
 
         userRepository.save(user);
 
@@ -121,7 +121,7 @@ public class TagService {
             return ResponseEntity.unprocessableEntity().body("Unable to delete tag");
         }
 
-        user.setUsedProfiles(user.getUsedProfiles() - 1);
+        user.setUsedTags(user.getUsedTags() - 1);
 
         userRepository.save(user);
 
