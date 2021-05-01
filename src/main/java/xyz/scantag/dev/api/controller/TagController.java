@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping(value = "/api/v1/tags")
-public class TagProfileController {
+public class TagController {
 
     @Autowired
     private TagService tagService;
