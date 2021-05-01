@@ -45,10 +45,9 @@ public class TagService {
 
         Tag tag = Tag.builder()
                 .tagId(tagId)
-                .profileName(tagModel.getProfileName())
+                .tagName(tagModel.getTagName())
                 .userId(userId)
                 .email(tagModel.getEmail())
-                .profileName(tagModel.getProfileName())
                 .firstName(tagModel.getFirstName())
                 .lastName(tagModel.getLastName())
                 .contactNumber(tagModel.getContactNumber())
@@ -76,10 +75,9 @@ public class TagService {
 
         Tag newTag = Tag.builder()
                 .tagId(tagId)
-                .profileName(tagModel.getProfileName())
+                .tagName(tagModel.getTagName())
                 .userId(tag.getUserId())
                 .email(tagModel.getEmail())
-                .profileName(tagModel.getProfileName())
                 .firstName(tagModel.getFirstName())
                 .lastName(tagModel.getLastName())
                 .contactNumber(tagModel.getContactNumber())

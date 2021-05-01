@@ -11,7 +11,7 @@ public class TagModel {
 
     private String tagId;
 
-    private String profileName;
+    private String tagName;
 
     private String email;
 

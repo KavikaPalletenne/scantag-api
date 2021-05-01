@@ -19,7 +19,7 @@ public class Tag {
     private String tagId;
 
     @Column(length = 50)
-    private String profileName;
+    private String tagName;
 
     @Column(length = 320)
     private String email;
