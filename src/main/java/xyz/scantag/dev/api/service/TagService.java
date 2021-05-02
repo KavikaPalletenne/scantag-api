@@ -96,13 +96,13 @@ public class TagService {
         return tagRepository.findAllByUserId(userId);
     }
 
-    public Tag getById(String profileId) {
+    public Tag getById(String tagId) {
 
-        if(tagRepository.findById(profileId).isEmpty()) {
+        if(tagRepository.findById(tagId).isEmpty()) {
             return null;
         }
 
-        return tagRepository.findById(profileId).get();
+        return tagRepository.findById(tagId).get();
     }
 
     public ResponseEntity<Object> deleteByTagId(String tagId) {

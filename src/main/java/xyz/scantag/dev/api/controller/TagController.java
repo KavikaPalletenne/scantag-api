@@ -53,24 +53,24 @@ public class TagController {
     }
 
     @GetMapping(value = "/get")
-    public Tag getById(@RequestParam String profileId) {
+    public Tag getById(@RequestParam String tagId) {
 
-        return tagService.getById(profileId);
+        return tagService.getById(tagId);
     }
 
     @PostMapping(value = "/delete")
-    public ResponseEntity<Object> deleteById(@RequestParam String profileId, Principal principal){
+    public ResponseEntity<Object> deleteById(@RequestParam String tagId, Principal principal){
 
-        Tag tag = tagService.getById(profileId);
+        Tag tag = tagService.getById(tagId);
 
         if(tag == null) {
-            return ResponseEntity.badRequest().body("Could not find profile");
+            return ResponseEntity.badRequest().body("Could not find tag");
         }
 
         if(!principal.getName().equals(userService.getById(tag.getUserId()).getEmail())) {
-            return ResponseEntity.badRequest().body("Unauthorised to delete profile");
+            return ResponseEntity.badRequest().body("Unauthorised to delete tag");
         }
 
-        return tagService.deleteByTagId(profileId);
+        return tagService.deleteByTagId(tagId);
     }
 }
