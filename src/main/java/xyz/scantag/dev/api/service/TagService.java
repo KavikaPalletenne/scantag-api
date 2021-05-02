@@ -99,7 +99,10 @@ public class TagService {
     public Tag getById(String tagId) {
 
         if(tagRepository.findById(tagId).isEmpty()) {
-            return null;
+
+            Tag tag = Tag.builder().tagName("empty").build();
+
+            return tag;
         }
 
         return tagRepository.findById(tagId).get();
