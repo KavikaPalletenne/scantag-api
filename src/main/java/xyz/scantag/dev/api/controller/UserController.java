@@ -18,7 +18,7 @@ import java.security.Principal;
 
 @RestController
 @Slf4j
-@RequestMapping(value = "api/v1/users")
+@RequestMapping(value = "/v1/users")
 public class UserController {
 
     @Autowired

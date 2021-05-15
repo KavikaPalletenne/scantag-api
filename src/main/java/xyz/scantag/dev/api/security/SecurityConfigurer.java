@@ -56,12 +56,12 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("/api/v1/auth/authenticate").permitAll()
-                .antMatchers("/api/v1/users/create").permitAll() //TODO: Add .hasIpAddress("11.11.11.11") so only server can access
-                .antMatchers("/api/v1/users/get").permitAll() //TODO: Add .hasIpAddress("11.11.11.11") so only server can access
-                .antMatchers("/api/v1/users/getByEmail").permitAll()
-                .antMatchers("/api/v1/tags/get").permitAll()
-                .antMatchers("/api/v1/tags/create").permitAll()
+                .authorizeRequests().antMatchers("/v1/auth/authenticate").permitAll()
+                .antMatchers("/v1/users/create").permitAll() //TODO: Add .hasIpAddress("11.11.11.11") so only server can access
+                .antMatchers("/v1/users/get").permitAll() //TODO: Add .hasIpAddress("11.11.11.11") so only server can access
+                .antMatchers("/v1/users/getByEmail").permitAll()
+                .antMatchers("/v1/tags/get").permitAll()
+                .antMatchers("/v1/tags/create").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/google95919a7921b7e9dd.html").permitAll()
                 .antMatchers("/google95919a7921b7e9dd").permitAll()
