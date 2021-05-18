@@ -7,7 +7,10 @@ public class AuthenticationResponseModel {
 
     private final String jwt;
 
-    public AuthenticationResponseModel(String jwt) {
+    private final String userId;
+
+    public AuthenticationResponseModel(String jwt, String userId) {
         this.jwt = jwt;
+        this.userId = userId;
     }
 }

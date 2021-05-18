@@ -3,6 +3,7 @@ package xyz.scantag.dev.api.controller;
 import xyz.scantag.dev.api.model.AuthenticationRequestModel;
 import xyz.scantag.dev.api.model.AuthenticationResponseModel;
 import xyz.scantag.dev.api.security.UserDetailsServiceImpl;
+import xyz.scantag.dev.api.service.UserService;
 import xyz.scantag.dev.api.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class AuthenticationController {
     private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
@@ -42,8 +46,9 @@ public class AuthenticationController {
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
+        final String userId = userService.getByUsername(authenticationRequest.getUsername()).getUserId();
 
-        return ResponseEntity.ok(new AuthenticationResponseModel(jwt));
+        return ResponseEntity.ok(new AuthenticationResponseModel(jwt, userId));
     }
 }
 
