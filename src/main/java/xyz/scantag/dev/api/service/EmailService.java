@@ -43,7 +43,7 @@ public class EmailService {
         mailSender.send(message);
     }
 
-    public void sendNotificationEmail(String recipientEmail, String link, String tagName, String scannerLocation, String scannerIpAddress)
+    public void sendNotificationEmail(String recipientEmail, String tagName, String scannerLocation, String scannerIpAddress)
             throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
