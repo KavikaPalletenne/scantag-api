@@ -10,7 +10,9 @@ import xyz.scantag.dev.api.model.TagModel;
 import xyz.scantag.dev.api.persistence.TagRepository;
 import xyz.scantag.dev.api.persistence.UserRepository;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Transactional
@@ -22,6 +24,9 @@ public class TagService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EmailService emailService;
 
 
 
@@ -96,7 +101,7 @@ public class TagService {
         return tagRepository.findAllByUserId(userId);
     }
 
-    public Tag getById(String tagId) {
+    public Tag getById(String tagId, String scannerLocation, String scannerIpAddress) {
 
         if(tagRepository.findById(tagId).isEmpty()) {
 
@@ -105,7 +110,17 @@ public class TagService {
             return tag;
         }
 
-        return tagRepository.findById(tagId).get();
+        Tag tag = tagRepository.findById(tagId).get();
+
+        if(tag.getEnableNotifications()) {
+
+            try {
+                emailService.sendNotificationEmail(tag.getEmail(), tag.getTagName(), scannerLocation, scannerIpAddress);
+            } catch (UnsupportedEncodingException | MessagingException ignored) {
+            }
+        }
+
+        return tag;
     }
 
     public ResponseEntity<Object> deleteByTagId(String tagId) {
