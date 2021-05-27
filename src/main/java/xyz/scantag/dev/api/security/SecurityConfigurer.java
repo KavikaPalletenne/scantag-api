@@ -62,6 +62,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v1/users/getByEmail").permitAll()
                 .antMatchers("/v1/tags/get").permitAll()
                 .antMatchers("/v1/tags/create").permitAll()
+                .antMatchers("/v1/auth/forgotPassword").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/google95919a7921b7e9dd.html").permitAll()
                 .antMatchers("/google95919a7921b7e9dd").permitAll()
