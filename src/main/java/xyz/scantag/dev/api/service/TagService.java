@@ -28,7 +28,7 @@ public class TagService {
     @Autowired
     private EmailService emailService;
 
-
+//TODO: Remove multiple database calls in favour of single call within each function.
 
     public ResponseEntity<Object> createTag(String userId, TagModel tagModel) {
 
@@ -119,6 +119,20 @@ public class TagService {
             } catch (UnsupportedEncodingException | MessagingException ignored) {
             }
         }
+
+        return tag;
+    }
+
+    public Tag getById(String tagId) {
+
+        if(tagRepository.findById(tagId).isEmpty()) {
+
+            Tag tag = Tag.builder().tagName("empty").build();
+
+            return tag;
+        }
+
+        Tag tag = tagRepository.findById(tagId).get();
 
         return tag;
     }
