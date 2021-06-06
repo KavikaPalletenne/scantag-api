@@ -24,29 +24,32 @@ public class UserService {
 
     public User getById(String userId) {
 
-        if(userRepository.findById(userId).isEmpty()) {
-            User user = User.builder()
-                    .email("empty")
+        User user = userRepository.findById(userId).get();
+
+        if(user.getUserId() == null) {
+            User emptyUser = User.builder().email("empty")
                     .build();
 
-            return user;
+            return emptyUser;
         }
 
-        return userRepository.findById(userId).get();
+        return user;
     }
 
     public User getByUsername(String username) {
 
-        if(userRepository.findByUsername(username).isEmpty()) {
+        User user = userRepository.findByUsername(username).get();
 
-            User user = User.builder()
+        if(user.getUserId() == null) {
+
+            User emptyUser = User.builder()
                     .email("empty")
                     .build();
 
-            return user;
+            return emptyUser;
         }
 
-        return userRepository.findByUsername(username).get();
+        return user;
     }
 
     public ResponseEntity<Object> createUser(UserModel userModel) {
@@ -96,6 +99,12 @@ public class UserService {
     public ResponseEntity<Object> updateUser(String userId, UserModel userModel) {
 
         User oldUser = userRepository.findByUsername(userModel.getEmail()).get();
+
+        if(oldUser.getUserId() == null) {
+
+            return ResponseEntity.unprocessableEntity().body("User not found");
+        }
+
         String oldPassword = oldUser.getPassword();
 
         Integer maxTags = 1;
@@ -136,11 +145,11 @@ public class UserService {
 
     public ResponseEntity<Object> updatePassword(String username, String oldPassword, String newPassword) {
 
-        if(userRepository.findByUsername(username).isEmpty()) {
+        User user = userRepository.findByUsername(username).get();
+
+        if(user.getUserId() == null) {
             return ResponseEntity.badRequest().body("User does not exist");
         }
-
-        User user = userRepository.findByUsername(username).get();
 
         if(!bCryptEncoder.matches(oldPassword, user.getPassword())) {
             return ResponseEntity.badRequest().body("Wrong password");
@@ -154,11 +163,11 @@ public class UserService {
 
     public ResponseEntity<Object> enableNotifications(String username, Boolean enableNotifications) {
 
-        if(userRepository.findByUsername(username).isEmpty()) {
+        User user = userRepository.findByUsername(username).get();
+
+        if(user.getUserId() == null) {
             return ResponseEntity.unprocessableEntity().body("User not found");
         }
-
-        User user = userRepository.findByUsername(username).get();
 
         user.setEnableNotifications(enableNotifications);
         userRepository.save(user);
@@ -168,27 +177,30 @@ public class UserService {
 
     public void updateResetPasswordToken(String token, String email) {
 
-        if(userRepository.findByEmail(email).isEmpty()) {
+        User user = userRepository.findByEmail(email).get();
+
+        if(user.getUserId() == null) {
             return;
         }
 
-        User user = userRepository.findByEmail(email).get();
         user.setResetPasswordToken(token);
         userRepository.save(user);
     }
 
     public User getByResetPasswordToken(String token) {
 
-        if(userRepository.findByResetPasswordToken(token).isEmpty())
+        User user = userRepository.findByResetPasswordToken(token).get();
+
+        if(user.getUserId() == null)
         {
-            User user = User.builder()
+            User emptyUser = User.builder()
                     .email("empty")
                     .build();
 
-            return user;
+            return emptyUser;
         }
 
-        return userRepository.findByResetPasswordToken(token).get();
+        return user;
     }
 
     public ResponseEntity<Object> updatePassword(User user, String newPassword) {
