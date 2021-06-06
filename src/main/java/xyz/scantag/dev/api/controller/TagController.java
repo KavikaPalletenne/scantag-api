@@ -53,9 +53,9 @@ public class TagController {
     }
 
     @GetMapping(value = "/get")
-    public Tag getById(@RequestParam String tagId) {
+    public Tag getById(@RequestParam String tagId, @RequestParam String scannerLocation, @RequestParam String scannerIpAddress) {
 
-        return tagService.getById(tagId);
+        return tagService.getById(tagId, scannerLocation, scannerIpAddress);
     }
 
     @PostMapping(value = "/delete")
