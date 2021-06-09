@@ -49,4 +49,10 @@ public class User {
 
     @Column(length = 30)
     private String resetPasswordToken;
+
+    // Web3 SSO Support
+    @Column(length = 42) // ETH Address max 42 characters. Change max value to support other blockchains.
+    private String publicAddress;
+
+    private long nonce;
 }
