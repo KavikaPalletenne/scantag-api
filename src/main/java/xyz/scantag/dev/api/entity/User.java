@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "t_user")
@@ -55,4 +56,7 @@ public class User {
     private String emailVerificationToken;
 
     private Boolean emailVerified;
+
+    //Admin console
+    private LocalDateTime accountCreationDate;
 }

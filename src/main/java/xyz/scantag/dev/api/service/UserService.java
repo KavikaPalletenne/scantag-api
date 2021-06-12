@@ -12,6 +12,8 @@ import xyz.scantag.dev.api.persistence.UserRepository;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional
@@ -101,6 +103,7 @@ public class UserService {
                 .enableNotifications(userModel.getEnableNotifications())
                 .emailVerificationToken(emailVerificationToken)
                 .emailVerified(false)
+                .accountCreationDate(LocalDateTime.now(Clock.systemUTC()))
                 .build();
 
         try {
