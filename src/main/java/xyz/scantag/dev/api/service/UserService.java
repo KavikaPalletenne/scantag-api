@@ -193,10 +193,6 @@ public class UserService {
 
     public void updateResetPasswordToken(String token, String email) {
 
-        if(userRepository.findByEmail(email).isEmpty()) {
-            return;
-        }
-
         User user = userRepository.findByEmail(email).get();
         user.setResetPasswordToken(token);
         userRepository.save(user);
