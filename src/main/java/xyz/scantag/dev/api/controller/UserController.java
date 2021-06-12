@@ -25,12 +25,6 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private JavaMailSender mailSender;
-
-    @Autowired
     private EmailService emailService;
 
 
@@ -115,12 +109,17 @@ public class UserController {
     @PostMapping("/resetPassword")
     public ResponseEntity<Object> processResetPassword(@RequestParam String token, @RequestParam String password) {
 
-        if(userService.getByResetPasswordToken(token) == null) {
+        if(userService.getByResetPasswordToken(token) == null || userService.getByResetPasswordToken(token).getEmail().equals("empty")) {
             return ResponseEntity.badRequest().body("Invalid token");
         }
 
         User user = userService.getByResetPasswordToken(token);
         return userService.updatePassword(user, password);
+    }
+
+    @PostMapping("/verifyEmail")
+    public ResponseEntity<Object> processVerifyEmail(@RequestParam String token) {
+        return userService.verifyEmail(token);
     }
 
 }

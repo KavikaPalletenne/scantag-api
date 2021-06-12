@@ -49,4 +49,10 @@ public class User {
 
     @Column(length = 30)
     private String resetPasswordToken;
+
+    //Verify email address
+    @Column(length = 30)
+    private String emailVerificationToken;
+
+    private Boolean emailVerified;
 }

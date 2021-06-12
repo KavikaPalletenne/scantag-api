@@ -69,4 +69,30 @@ public class EmailService {
         mailSender.send(message);
     }
 
+    public void sendEmailVerificationEmail(String recipientEmail, String link)
+            throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("noreply@scantag.co", "ScanTag Auth");
+        helper.setTo(recipientEmail);
+
+        String subject = "Welcome to ScanTag! Verify your email using this link";
+
+        String content = "<p>Hello,</p>"
+                + "<style>p {font-family: sans-serif; padding-left: 20px;} img {width: 75px;padding-left: 15px; padding-top: 30px;} .button2 {font: 20px 'Rubik'; text-decoration: none; color: white; background-color: #FF9369; padding: 6px 18px 6px 18px; border-radius: 15px;} .button2:hover { background-color: #FFB79B; color: white; border-top: 0px solid #000; border-right: 0px solid #000; border-bottom: 0px solid #000; border-left: 0px solid #000;}</style>"
+                + "<p>Welcome to ScanTag!</p>"
+                + "<p style=\"padding-bottom: 20px;\">Click the link below to verify your email:</p>"
+                + "<p><a class=\"button2\" href=\"" + link + "\">Verify my email/a></p>"
+                + "<br>"
+                + "<p>Ignore this email if you did not sign up for a ScanTag account.</p>"
+                + "<a href=\"https://scantag.co\"><img style=\"float: left; width: 50px;\" src=\"https://raw.githubusercontent.com/KavikaPalletenne/scantag-assets/main/scantag-logo.svg\" alt=\"ScanTag Logo\"/></a>"
+                + "<p style=\"float: left; font-weight: bold; padding-top: 40px;\">ScanTag - The Modern Name Tag</p>";
+
+        helper.setSubject(subject);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+    }
 }

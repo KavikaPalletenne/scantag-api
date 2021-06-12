@@ -10,6 +10,8 @@ import xyz.scantag.dev.api.entity.User;
 import xyz.scantag.dev.api.model.UserModel;
 import xyz.scantag.dev.api.persistence.UserRepository;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Transactional
@@ -21,6 +23,10 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder bCryptEncoder;
+
+    @Autowired
+    private  EmailService emailService;
+
 
     public User getById(String userId) {
 
@@ -60,7 +66,7 @@ public class UserService {
 
         String userId = RandomStringUtils.randomAlphanumeric(8);
 
-        while (userRepository.findById(userId).isPresent()) {
+        while(userRepository.findById(userId).isPresent()) {
             userId = RandomStringUtils.randomAlphanumeric(8);
         }
 
@@ -70,6 +76,12 @@ public class UserService {
             if (userModel.getRole().equals("premium")) {
                 maxTags = 30;
             }
+        }
+
+        String emailVerificationToken = RandomStringUtils.randomAlphanumeric(30);
+
+        while(userRepository.findByEmailVerificationToken(emailVerificationToken).isPresent()) {
+            emailVerificationToken = RandomStringUtils.randomAlphanumeric(30);
         }
 
         User user = User.builder()
@@ -86,10 +98,19 @@ public class UserService {
                 .credentialsNonExpired(true)
                 .role(userModel.getRole())
                 .enableNotifications(userModel.getEnableNotifications())
+                .emailVerificationToken(emailVerificationToken)
+                .emailVerified(false)
                 .build();
 
-        userRepository.save(user);
+        try {
+            String emailVerificationLink = "https://scantag.co/auth/verify-email?token=" + emailVerificationToken;
+            emailService.sendEmailVerificationEmail(user.getEmail(), emailVerificationLink);
+        } catch (UnsupportedEncodingException | MessagingException e) {
 
+            return ResponseEntity.ok().body("Error while sending email verification email");
+        }
+
+        userRepository.save(user);
         return ResponseEntity.ok().body("User successfully created");
     }
 
@@ -201,6 +222,28 @@ public class UserService {
         userRepository.save(user);
 
         return ResponseEntity.ok().body("Successfully updated password");
+    }
+
+    public ResponseEntity<Object> verifyEmail(String token) {
+
+        if(userRepository.findByEmailVerificationToken(token).isEmpty()) {
+            return ResponseEntity.unprocessableEntity().body("Could not find user associated with token");
+        }
+
+        User user = userRepository.findByEmailVerificationToken(token).get();
+
+        if(isUserEmailVerified(user.getUserId())) {
+            return ResponseEntity.badRequest().body("Email has already been verified");
+        }
+
+        user.setEmailVerified(true);
+        userRepository.save(user);
+
+        return ResponseEntity.ok().body("Successfully validated email");
+    }
+
+    private Boolean isUserEmailVerified(String userId) {
+        return userRepository.findById(userId).get().getEmailVerified();
     }
 
     public ResponseEntity<Object> deleteUser(String username) {
