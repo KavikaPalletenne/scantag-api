@@ -103,13 +103,15 @@ public class UserController {
             return ResponseEntity.ok().body("Error while sending email");
         }
 
+        userService.updateResetPasswordToken(token, email);
+
         return ResponseEntity.ok().body("If your email has been used to register an account, a reset password link has been sent to your email.");
     }
 
     @PostMapping("/resetPassword")
     public ResponseEntity<Object> processResetPassword(@RequestParam String token, @RequestParam String password) {
 
-        if(userService.getByResetPasswordToken(token) == null || userService.getByResetPasswordToken(token).getEmail().equals("empty")) {
+        if(userService.getByResetPasswordToken(token).getEmail().equals("empty")) {
             return ResponseEntity.badRequest().body("Invalid token");
         }
 
