@@ -10,6 +10,7 @@ import xyz.scantag.dev.api.service.TagService;
 import xyz.scantag.dev.api.service.UserService;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,6 +48,16 @@ public class TagController {
         if(!principal.getName().equals(userService.getById(userId).getEmail())) {
 
             return null;
+        }
+
+        if(!userService.isUserEmailVerifiedByUserId(userId)) {
+            List<Tag> emailNotVerified = new ArrayList<>();
+
+            emailNotVerified.add(Tag.builder()
+                    .tagName("emailnotverified")
+                    .build());
+
+            return emailNotVerified;
         }
 
         return tagService.getAllByUserId(userId);

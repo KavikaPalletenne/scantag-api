@@ -31,11 +31,9 @@ public class UserService {
     public User getById(String userId) {
 
         if(userRepository.findById(userId).isEmpty()) {
-            User user = User.builder()
+            return User.builder()
                     .email("empty")
                     .build();
-
-            return user;
         }
 
         return userRepository.findById(userId).get();
@@ -44,12 +42,15 @@ public class UserService {
     public User getByUsername(String username) {
 
         if(userRepository.findByUsername(username).isEmpty()) {
-
-            User user = User.builder()
+            return User.builder()
                     .email("empty")
                     .build();
+        }
 
-            return user;
+        if(!isUserEmailVerifiedByUsername(username)) {
+            return User.builder()
+                    .email("emailnotverified")
+                    .build();
         }
 
         return userRepository.findByUsername(username).get();
@@ -232,7 +233,7 @@ public class UserService {
 
         User user = userRepository.findByEmailVerificationToken(token).get();
 
-        if(isUserEmailVerified(user.getUserId())) {
+        if(isUserEmailVerifiedByUserId(user.getUserId())) {
             return ResponseEntity.badRequest().body("Email has already been verified");
         }
 
@@ -242,8 +243,11 @@ public class UserService {
         return ResponseEntity.ok().body("Successfully validated email");
     }
 
-    private Boolean isUserEmailVerified(String userId) {
+    public Boolean isUserEmailVerifiedByUserId(String userId) {
         return userRepository.findById(userId).get().getEmailVerified();
+    }
+    public Boolean isUserEmailVerifiedByUsername(String username) {
+        return userRepository.findByUsername(username).get().getEmailVerified();
     }
 
     public ResponseEntity<Object> deleteUser(String username) {
