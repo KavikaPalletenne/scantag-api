@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-@Table(name = "t_tag_profile")
+@Table(name = "t_tag")
 @SuperBuilder
 @NoArgsConstructor
 public class Tag {
