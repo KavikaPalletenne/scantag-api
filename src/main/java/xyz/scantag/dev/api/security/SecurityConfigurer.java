@@ -60,6 +60,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v1/users/create").permitAll() //TODO: Add .hasIpAddress("11.11.11.11") so only server can access
                 .antMatchers("/v1/users/get").permitAll() //TODO: Add .hasIpAddress("11.11.11.11") so only server can access
                 .antMatchers("/v1/users/getByEmail").permitAll()
+                .antMatchers("/v1/mailingList/**").permitAll()
                 .antMatchers("/v1/tags/get").permitAll()
                 .antMatchers("/v1/tags/create").permitAll()
                 .antMatchers("/v1/auth/forgotPassword").permitAll()
