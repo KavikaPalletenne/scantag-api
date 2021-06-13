@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "t_coming-soon-signups")
+@Table(name = "t_mailingList")
 @Getter
 @Setter
 @SuperBuilder
